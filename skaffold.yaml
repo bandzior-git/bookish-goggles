@@ -15,7 +15,6 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-<<<<<<< HEAD
     - image: bandzior/client
       context: client
       docker:
@@ -24,5 +23,3 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
-=======
->>>>>>> a86f298fa862c7ad1f9ab79884353ac000386356

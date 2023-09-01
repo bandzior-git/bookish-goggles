@@ -8,13 +8,10 @@ metadata:
   labels:
     name: ingress
 spec:
-<<<<<<< HEAD
   tls:
     - secretName: myssl
       hosts:
         - ticketing.bandzior
-=======
->>>>>>> a86f298fa862c7ad1f9ab79884353ac000386356
   rules:
     - host: ticketing.bandzior
       http:
@@ -26,7 +23,6 @@ spec:
                 name: auth-srv
                 port:
                   number: 3000
-<<<<<<< HEAD
           - pathType: Prefix
             path: /?(.*)
             backend:
@@ -42,5 +38,3 @@ metadata:
   namespace: ingress-nginx
 data:
   ssl-redirect: 'false'
-=======
->>>>>>> a86f298fa862c7ad1f9ab79884353ac000386356
