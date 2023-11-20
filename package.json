@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@bandziortickets/common": "^0.0.9"
+  }
+}

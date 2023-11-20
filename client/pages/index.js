@@ -1,14 +1,38 @@
 import buildClient from '../api/build-client';
+import Link from 'next/link';
 
 //import axios from 'axios';
 //import https from 'https';
 
-const Landing = ({ currentUser }) => {
-  //console.log(currentUser);
-  return currentUser ? (
-    <h1>You are signed in, {currentUser.email} </h1>
-  ) : (
-    <h1>You are not signed in</h1>
+const Landing = (props) => {
+  console.log(props.currentUser);
+  const ticketList = props.tickets.map((ticket) => {
+    return (
+      <tr key={ticket.id}>
+        <td>
+          <Link href="/tickets/[ticketId]" as={`/tickets/${ticket.id}`}>
+            {ticket.title}
+          </Link>
+        </td>
+        <td>{ticket.price}</td>
+        <td>{ticket.orderId}</td>
+      </tr>
+    );
+  });
+  return (
+    <div>
+      <h1>Tickets</h1>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Order Id</th>
+          </tr>
+        </thead>
+        <tbody>{ticketList}</tbody>
+      </table>
+    </div>
   );
 };
 
@@ -39,15 +63,19 @@ const Landing = ({ currentUser }) => {
 //};
 
 export const getServerSideProps = async ({ req }) => {
-  let res;
+  //let res;
+  //let tickets;
   //try {
   console.log('LandingPage serversideprops');
-  res = await buildClient({ req }).get('/api/users/currentuser');
-  //console.log(res.data);
+  const res = await buildClient({ req }).get('/api/users/currentuser');
+  const tickets = await buildClient({ req }).get('/api/tickets');
+  const currentUser = res.data.currentUser;
+  console.log({ currentUser: currentUser, tickets: tickets.data });
   //} catch {
   //  return { props: {} };
   //}
-  return { props: res.data };
+
+  return { props: { currentUser: currentUser, tickets: tickets.data } };
 };
 
 export default Landing;
