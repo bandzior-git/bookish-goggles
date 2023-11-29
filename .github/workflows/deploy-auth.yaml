@@ -15,3 +15,8 @@ jobs:
         - run: cd auth && docker build -t $DOCKER_USERNAME/auth .
         - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         - run: docker push $DOCKER_USERNAME/auth
+        # - uses: digitalocean/action-doctl@v2
+        #   with:
+        #     token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+        # - run: doctl kubernetes cluster kubeconfig save CLUSTER_NAME
+        # - run: kubectl rollout restart deployment auth-depl
