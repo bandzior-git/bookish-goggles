@@ -4,14 +4,14 @@ on:
       - master
     paths:
       - 'auth/**'
+env:
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 jobs:
     build:
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
-        - run: cd auth && docker build -t bandzior/auth .
+        - run: cd auth && docker build -t $DOCKER_USERNAME/auth .
         - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-          env:
-            DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-            DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        - run: docker push bandzior/auth
+        - run: docker push $DOCKER_USERNAME/auth
